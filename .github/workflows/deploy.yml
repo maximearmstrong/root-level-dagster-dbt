@@ -41,6 +41,15 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
           path: project-repo
+
+      - name: Move dagster folder to root
+        run: |
+          ls -lah
+          shopt -s dotglob
+          mv jaffle_dagster/* tmp_jaffle_dagster
+          rm -rf jaffle_dagster
+          mv tmp_jaffle_dagster/* .
+          ls -lah
           
       - name: Python Executable Deploy
         if: steps.prerun.outputs.result == 'pex-deploy'
