@@ -46,9 +46,9 @@ jobs:
         run: |
           ls -lah
           shopt -s dotglob
-          mv jaffle_dagster/* tmp_jaffle_dagster
-          rm -rf jaffle_dagster
-          mv tmp_jaffle_dagster/* .
+          mv project_repo/jaffle_dagster/* project_repo/tmp_jaffle_dagster
+          rm -rf project_repo/jaffle_dagster
+          mv project_repo/tmp_jaffle_dagster/* project_repo
           ls -lah
           
       - name: Python Executable Deploy
