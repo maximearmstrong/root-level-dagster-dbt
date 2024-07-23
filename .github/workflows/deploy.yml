@@ -54,13 +54,17 @@ jobs:
           mv tmp_jaffle_dagster/* .
           rm -rf tmp_jaffle_dagster
           ls -lah
-          cd ..
+          cd jaffle_shop
+          ls -lah
+          cd seeds
+          ls -lah
+          cd ../../..
 
       - name: Prepare DBT project for deployment
         if: steps.prerun.outputs.result == 'pex-deploy'
         # --upgrade-strategy eager picks up newer packages that are required for things to work
         run: |
-          # pip install pip --upgrade
+          pip install pip --upgrade
           cd project-repo
           pip install . --upgrade --upgrade-strategy eager
           dagster-dbt project prepare-for-deployment --file jaffle_dagster/project.py
