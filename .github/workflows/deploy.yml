@@ -60,12 +60,8 @@ jobs:
         if: steps.prerun.outputs.result == 'pex-deploy'
         # --upgrade-strategy eager picks up newer packages that are required for things to work
         run: |
-          pip install pip --upgrade
+          # pip install pip --upgrade
           cd project-repo
-          cd jaffle_shop
-          pip install dbt-duckdb
-          dbt seed
-          cd ..
           pip install . --upgrade --upgrade-strategy eager
           dagster-dbt project prepare-for-deployment --file jaffle_dagster/project.py
           # The cli command below can be used to manage syncing the prod manifest to branches if state_path is set on the DbtProject
