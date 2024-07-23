@@ -58,6 +58,9 @@ jobs:
           ls -lah
           cd seeds
           ls -lah
+          cd ..
+          cd models
+          ls -lah
           cd ../../..
 
       - name: Prepare DBT project for deployment
