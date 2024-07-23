@@ -40,6 +40,32 @@ jobs:
           ref: ${{ github.head_ref }}
           path: project-repo
           
+      - name: Move Dagster folder to root
+        if: steps.prerun.outputs.result == 'pex-deploy'
+        run: |
+          cd project-repo
+          ls -lah
+          mkdir tmp_jaffle_dagster
+          shopt -s dotglob
+          mv jaffle_dagster/* tmp_jaffle_dagster
+          rm -rf jaffle_dagster
+          mv tmp_jaffle_dagster/* .
+          rm -rf tmp_jaffle_dagster
+          ls -lah
+          cd ..
+
+      - name: Prepare DBT project for deployment
+        if: steps.prerun.outputs.result == 'pex-deploy'
+        # --upgrade-strategy eager picks up newer packages that are required for things to work
+        run: |
+          pip install pip --upgrade
+          cd project-repo
+          pip install . --upgrade --upgrade-strategy eager
+          dagster-dbt project prepare-for-deployment --file jaffle_dagster/project.py
+          # The cli command below can be used to manage syncing the prod manifest to branches if state_path is set on the DbtProject
+          # dagster-cloud ci dagster-dbt project manage-state --file jaffle_dagster/project.py
+        shell: bash
+          
       - name: Python Executable Deploy
         if: steps.prerun.outputs.result == 'pex-deploy'
         uses: dagster-io/dagster-cloud-action/actions/build_deploy_python_executable@v0.1
