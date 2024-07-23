@@ -1,4 +1,5 @@
 locations:
 - code_source:
-    module_name: jaffle_dagster.jaffle_dagster.definitions
+    module_name: jaffle_dagster.definitions
   location_name: jaffle_dagster
+  working_directory: ./jaffle_dagster
