@@ -40,16 +40,8 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: ${{ github.head_ref }}
+          sparse-checkout: 'jaffle_dagster'
           path: project-repo
-
-      - name: Move dagster folder to root
-        run: |
-          ls -lah
-          shopt -s dotglob
-          mv project_repo/jaffle_dagster/* project_repo/tmp_jaffle_dagster
-          rm -rf project_repo/jaffle_dagster
-          mv project_repo/tmp_jaffle_dagster/* project_repo
-          ls -lah
           
       - name: Python Executable Deploy
         if: steps.prerun.outputs.result == 'pex-deploy'
