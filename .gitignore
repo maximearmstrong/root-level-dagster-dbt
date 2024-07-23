@@ -173,7 +173,6 @@ tmp*/
 
 *.duckdb
 *.geojson
-*.csv
 *.parquet
 
 data/outputs/*

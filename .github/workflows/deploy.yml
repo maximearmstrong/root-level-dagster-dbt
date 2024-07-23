@@ -54,14 +54,7 @@ jobs:
           mv tmp_jaffle_dagster/* .
           rm -rf tmp_jaffle_dagster
           ls -lah
-          cd jaffle_shop
-          ls -lah
-          cd seeds
-          ls -lah
           cd ..
-          cd models
-          ls -lah
-          cd ../../..
 
       - name: Prepare DBT project for deployment
         if: steps.prerun.outputs.result == 'pex-deploy'
