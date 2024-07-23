@@ -62,10 +62,11 @@ jobs:
         run: |
           pip install pip --upgrade
           cd project-repo
-          pip install . --upgrade --upgrade-strategy eager
           cd jaffle_shop
+          pip install dbt-duckdb
           dbt seed
           cd ..
+          pip install . --upgrade --upgrade-strategy eager
           dagster-dbt project prepare-for-deployment --file jaffle_dagster/project.py
           # The cli command below can be used to manage syncing the prod manifest to branches if state_path is set on the DbtProject
           # dagster-cloud ci dagster-dbt project manage-state --file jaffle_dagster/project.py
